@@ -1,0 +1,248 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[russian]{babel}
+\begin{document}
+
+\[Z=\frac{(B\widehat{\Theta} - C)^T(B(A^TA)^{-1}B^T)^{-1}(B\widehat{\Theta} - C)}
+{\frac{q}{n - (p + 1)}(Y - A\widehat{\Theta})^T(Y - A\widehat{\Theta})},\]
+
+\indent\indent
+
+\[A_{n\times(p+1)}=
+\begin{pmatrix}
+f_{1}(x_{11},\ldots,x_{1m}) & \cdots\  & f_{p+1}(x_{n1},\ldots,x_{1m})     \\
+\vdots  & \ddots   & \vdots  \\
+f_{1}(x_{n1},\ldots,x_{nm}) & \cdots\  & f_{p+1}(x_{n1},\ldots,x_{nm})  \\
+\end{pmatrix}\]
+
+\indent\indent
+
+\[Z=\frac{\hat\theta_{p}^{2}}
+{\frac{c_{p+1,p+1}}{n - (p + 1)}S(\widehat{\Theta})},\]
+
+\indent\indent
+
+\[A_{40\times4}=
+\begin{pmatrix}
+1 & -3.8 & 14.44 & -54.872  \\
+1 & -3.6 & 12.96 & -46.656  \\
+\vdots & \vdots & \vdots & \vdots \\
+1 & 4.0 & 16.0 & 64.0   \\
+\end{pmatrix};\hspace{0.2cm}
+(A^TA)^{-1}_{4\times4}=
+\begin{pmatrix}
+0.05649 & -0.00176 & -0.00594 & 0.00026  \\
+-0.00176 & 0.02933 & 0.00055 & -0.00257 \\
+-0.00594 & 0.00055 & 0.00113 & -0.00008 \\
+0.00026 & -0.00257 & -0.00008 & 0.00027 \\
+\end{pmatrix}
+\]
+
+\indent\indent
+
+\[\widehat\Theta_{4\times1}=(A^TA)^{-1}A^TY\approx
+\begin{pmatrix}
+-5.0836  \\
+3.975 \\
+-0.9782\\
+0.0109 \\
+\end{pmatrix}\]
+
+\indent\indent
+
+\[S(\widehat\Theta)=(Y - A\widehat{\Theta})^T(Y - A\widehat{\Theta})\approx 47.0175\]
+
+\[\begin{gathered}
+Z=\frac{\hat{\theta}_3^2}{\frac{c_{44}}{n-(p+1)} S(\widehat{\Theta})}=\frac{(0.0109)^2}{\frac{0.00027}{40-4} 47.0175} \approx 0.338
+\end{gathered}\]
+
+\[f_{0.95,1,40-4} \approx 4.1132 ; \quad Z=0.338<=f_{0.95,1,40-4} \approx 4.1132\]
+
+
+
+\[\begin{array}{r}
+\hat{\theta}_j-t_{1-\frac{\alpha}{2}, n-(\widehat{m}+1)} \sqrt{\frac{c_{(j+1)(j+1)}}{n-(\widehat{m}+1)} S(\widehat{\Theta})}<\theta_j <\hat{\theta}_j+t_{1-\frac{\alpha}{2}, n-(\widehat{m}+1)} \sqrt{\frac{c_{(j+1)(j+1)}}{n-(\widehat{m}+1)}S(\widehat{\Theta})},
+\end{array}\]
+
+\indent
+\[\begin{array}{ll}
+\vspace{0.2cm}
+\text{где } t_{1-\frac{\alpha}{2}, n-(\widehat{m}+1)}
+\text{- квантиль распределения Стьюдента с уровнем надежности  }
+\\
+1 - \frac{\alpha}{2} \text{  и количеством степеней свободы  }
+n - (\widehat{m}+1).\end{array}\]
+
+\[\begin{gathered}
+\vspace{0.2cm}
+t_{0.975,40-3} \approx 2.0262;\hspace{0.2cm} t_{0.995,40-3} \approx 2.7154 \\
+\vspace{0.2cm}
+S(\widehat{\Theta})=(Y - A\widehat{\Theta})^T(Y - A\widehat{\Theta})
+\approx 47.4589\\
+\vspace{0.2cm}
+\hat{\theta}_0-t_{0.975,40-3} \sqrt{\frac{c_{11}}{40-3} S(\widehat{\Theta})} \approx -5.6382 \\
+\vspace{0.2cm}
+\hat{\theta}_0+t_{0.975,40-3} \sqrt{\frac{c_{11}}{40-3} S(\widehat{\Theta})} \approx -4.5498 \\
+\vspace{0.2cm}
+\hat{\theta}_0-t_{0.995,40-3} \sqrt{\frac{c_{11}}{40-3} S(\widehat{\Theta})} \approx -5.8233 \\
+\hat{\theta}_0+t_{0.995,40-3} \sqrt{\frac{c_{11}}{40-3} S(\widehat{\Theta})} \approx -4.3647
+\end{gathered}\]
+
+\[\begin{aligned}
+\hat{\theta}_0+\hat{\theta}_1 x+ & \cdots+\hat{\theta}_{\widehat{m}} x^{\widehat{m}}-t_{1-\frac{\alpha}{2}, n-(\widehat{m}+1)} \sqrt{\frac{S(\widehat{\Theta})}{n-(\widehat{m}+1)}f^T\left(A^T A\right)^{-1} f} \\
+& <\theta_0+\theta_1 x+\cdots+\theta_m x^m \\
+& <\hat{\theta}_0+\hat{\theta}_1 x+\cdots+\hat{\theta}_{\widehat{m}} x^{\widehat{m}}+t_{1-\frac{\alpha}{2}, n-(\widehat{m}+1)} \sqrt{\frac{S(\widehat{\Theta})}{n-(\widehat{m}+1)}f^T\left(A^T A\right)^{-1} f},
+\end{aligned}\]
+
+\[\text{ где }  f_{(\widehat{m}+1) \times 1}=\left(\begin{array}{c}
+1 \\
+x \\
+\vdots \\
+x^\widehat{m}
+\end{array}\right)\]
+
+\indent
+
+\[\begin{gathered}
+\vspace{0.2cm}
+t_{0.975,40-3} \approx 2.0262; \hspace{0.2cm} t_{0.995,40-3} \approx 2.7154 \\
+\vspace{0.2cm}
+\hat{\theta}_0+\hat{\theta}_1 x+\cdots+\hat{\theta}_{\widehat{m}} x^{\widehat{m}}-t_{0.975,40-3} \sqrt{\hat{\sigma}^2 f^T\left(A^T A\right)^{-1} f} \\
+\vspace{0.2cm}
+\approx -0.9749x^2 + 4.0792x - 5.094 \\
+\vspace{0.2cm}
+-2.0262 \sqrt{0.00141x^4-0.00057x^3-0.00897x^2+0.0018x+0.07214} \\
+\vspace{0.2cm}
+\hat{\theta}_0+\hat{\theta}_1 x+\cdots+\hat{\theta}_{\widehat{m}} x^{\widehat{m}}-t_{0.995,40-3} \sqrt{\hat{\sigma}^2 f^T\left(A^T A\right)^{-1} f} \\
+\vspace{0.2cm}
+\approx -0.9749x^2 + 4.0792x - 5.094 \\
+\vspace{0.2cm}
+-2.7154 \sqrt{0.00141x^4-0.00057x^3-0.00897x^2+0.0018x+0.07214}
+\end{gathered}\]
+
+\[\widehat{f}_n(x)=\left\{\begin{array}{cc}
+\frac{n_k}{n * \Delta}, & x \in\left[t_k ; t_{k+1}\right)
+\text{ при } k \neq l, \hspace{0.2cm}  x \in\left[t_k ; t_{k+1}\right]
+\text{ при } k = l\\
+0, & x \in\left[t_0 ; t_1\right) \cup\left[t_l ; t_{l+1}\right)
+\end{array}\right.\]
+
+\[l = \frac{3.32[\text{lg}n] + 1 + \sqrt{n} + 1}{2} - 1 \approx 6\]
+
+\indent
+
+\[\widehat{E}_{40\times1} = Y - A\widehat{\Theta} = \left(\begin{array}{c}
+-1.224 \\
+0.926 \\
+\vdots \\
+-0.8013
+\end{array}\right)\]
+
+\indent
+
+\[\Delta = \frac{1.8069 + 1.6827}{6} \approx 0.5816\]
+
+\indent
+
+\[\widehat{f}_n(x)=\left\{\begin{array}{cc}
+\vspace{0.2cm}
+0, & x \in(-\infty ;-1.6827) \\
+\vspace{0.2cm}
+\frac{9}{40 * 0.5816}, & x \in[-1.6827 ;-1.1011) \\
+\vspace{0.2cm}
+\frac{8}{40 * 0.5816}, & x \in[-1.1011 ;-0.5195) \\
+\vspace{0.2cm}
+\frac{1}{40 * 0.5816}, & x \in[-0.5195 ; 0.0621) \\
+\vspace{0.2cm}
+\frac{9}{40 * 0.5816}, & x \in[0.0621 ; 0.6437) \\
+\vspace{0.2cm}
+\frac{7}{40 * 0.5816}, & x \in[0.6437 ; 1.2253) \\
+\vspace{0.2cm}
+\frac{6}{40 * 0.5816}, & x \in[1.2253 ; 1.8069] \\
+\vspace{0.2cm}
+0, & x \in(1.8069 ;+\infty)
+\end{array}\right.\]
+
+\indent
+
+\[\hat{\sigma}^2=\frac{(Y-A \widehat{\Theta})^T(Y-A \widehat{\Theta})}{n-(\widehat{m}+1)}\]
+
+\indent
+
+\[\hat{\sigma}^2=\frac{1}{40-3}\left(\begin{array}{llll}
+-1.224 & 0.926 & \ldots & -0.8013
+\end{array}\right)\left(\begin{array}{c}
+-1.224 \\
+0.926 \\
+\vdots \\
+-0.8013
+\end{array}\right) \approx 1.2827\]
+
+\indent
+
+\[L=\prod_{k=1}^n p\left(x=X_i \mid \Theta\right),\]
+
+\[\bar{L} = \text{ln}L\]
+
+\indent
+
+\[\theta_{i_{\text{МП}}}=\arg _{\theta \in {\Theta}} \max \bar{L},\]
+
+\[Z = np_0 + \sum_{i=1}^{l-1} {\frac{(n_k - np_k)^2}{np_k}} + np_l, \]
+
+\[G_{0\alpha} = [0, \chi^2_{1-\alpha}(\hat{l} - s)],\]
+
+\indent
+
+\[\begin{gathered}
+L=\prod_{k=1}^{40} p\left(x=\hat{E}_i \mid \theta\right)=\prod_{k=1}^{40} \frac{1}{\sqrt{2 \pi \theta}} e^{-\frac{x_i^2}{2 \theta}}=\left(2 \pi \theta\right)^{-20} e^{-\frac{1}{2 \theta} \sum_{k=1}^{40} x_i^2} \\
+\bar{L} = -20 \text{ln}2\pi\theta - \frac{1}{2\theta}\sum_{k=1}^{40} x_i^2\\
+\frac{\partial \bar{L}}{\partial \theta}=-\frac{20}{\theta}+\frac{1}{2 \theta^2} \sum_{k=1}^{40} x_i^2=0 \\
+-40 \theta+\sum_{k=1}^{40} x_i^2=0 \\
+\theta_{\text{МП}}=\frac{1}{40} \sum_{k=1}^{40} x_i^2 \approx 1.1865
+\end{gathered}\]
+
+\indent
+\[\text{оценкой - МП оценкой} \hspace{0.2cm} \sigma^2_{{\text{МП}}} \approx 1.1865.\]
+
+\indent
+\[\begin{gathered}
+p_0=P(-\infty<E<-1.6827)=\Phi_0\left(\frac{-1.6827}{\sqrt{1.2408}}\right)-\Phi_0(-\infty) \\
+=\Phi_0(\infty)-\Phi_0\left(\frac{1.6827}{\sqrt{1.2408}}\right) \approx 0.5-0.4346 \approx 0.0654 \\
+p_1=P(-1.6827<E<-1.1011)=\Phi_0\left(\frac{-1.1011}{\sqrt{1.2408}}\right)-\Phi_0\left(\frac{-1.6827}{\sqrt{1.2408}}\right) \\
+=\Phi_0\left(\frac{1.6827}{\sqrt{1.2408}}\right)-\Phi_0\left(\frac{1.1011}{\sqrt{1.2408}}\right) \approx 0.4346-0.3386 \approx 0.096 \\
+\ldots \\
+p_7=P(1.8069<E<+\infty)=\Phi_0(+\infty)-\Phi_0\left(\frac{1.8069}{\sqrt{1.2408}}\right) \approx 0.5-0.4476 \\
+\approx 0.0524
+\end{gathered}\]
+
+\indent
+\[Z = 40 * 0.0654 + \sum_{i=1}^{6} {\frac{(n_k - np_k)^2}{np_k}} + 40 * 0.0524\]
+\indent
+\[\text{Рассчитаем квантиль:} \hspace{0.2cm} \chi^2_{0.95}(7 - 1) = \chi^2_{0.95}(6) \approx 12.5916\]
+\indent
+\[Z \approx 20.8002 > \chi^2_{0.95}(6) \approx 12.5916\]
+
+\indent
+\[X_{40\times1}=\left(\begin{array}{c}
+-3.8 \\
+-3.6 \\
+\vdots \\
+4.0
+\end{array}\right); \hspace{0.2cm}\]
+
+\[E_{40\times1}=\left(\begin{array}{c}
+-1.2565 \\
+0.8721 \\
+\vdots \\
+-0.1769
+\end{array}\right); \hspace{0.2cm}
+Y_{40\times1}=\left(\begin{array}{c}
+-35.8965 \\
+-31.4879 \\
+\vdots \\
+-5.1769
+\end{array}\right) \hspace{0.2cm}
+\]
+
+\end{document}
