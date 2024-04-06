@@ -1,0 +1,116 @@
+import random
+import math
+
+#проверка матож 
+def checkSampleAverage(sampleAverage, n):
+    T = (sampleAverage - 0.5) / math.sqrt(1/12) * math.sqrt(n)
+    return -3 < T < 3
+
+#проверка выборочного среднего
+def checkSampleVariance(sampleVariance, n):
+    T = (sampleVariance - 1/12) / math.sqrt(1/180) * math.sqrt(n)
+    return -3 < T < 3
+
+
+def covariationMethod(X):  # вычисление выборочной ковариации
+    Cov_Av = 0
+    Cov_Var = (13 * len(X) - 6) / (len(X)**2)
+    Dover_Int_Minus = Cov_Av - 1.96 * (math.sqrt(Cov_Var))
+    Dover_Int_Plus = Cov_Av + 1.96 * (math.sqrt(Cov_Var))
+    Vybor_R = 0
+    for i in range(len(X) - 1):
+        Vybor_R += X[i] * X[i + 1]
+    Vybor_R *= 12 / len(X)
+    Vybor_R -= 3
+    return (Dover_Int_Minus < Vybor_R) and (Dover_Int_Plus > Vybor_R)
+
+
+# выборочное среднее и выборочная дисперсия (M = 0.5, D = 1/12) №1
+X = []
+for i in range(10000):
+    X.append(random.uniform(0, 1))
+
+print("№1")
+print("Выборочное среднее при 100 реализациях:", sum(X[0:100])/100)
+print("Выборочная дисперсия при 100 реализациях:", sum([(i-0.5)**2 for i in X[0:100]])/100,"\n")
+
+print("Выборочное среднее при 1000 реализациях:", sum(X[0:1000])/1000)
+print("Выборочная дисперсия при 1000 реализациях:", sum([(i-0.5)**2 for i in X[0:1000]])/1000,"\n")
+
+sampleAverage = sum(X)/len(X)
+sampleVariance = sum([(i-0.5)**2 for i in X])/len(X)
+print("Выборочное среднее при 10000 реализациях:", sampleAverage)
+print("Выборочная дисперсия при 10000 реализациях:", sampleVariance,"\n")
+print(f'Проверка выборочного среднего на нормальность с точностью '
+      f'до +- 3 С.К.О. при 10 000 реализаций: {checkSampleAverage(sampleAverage, len(X))}')
+print(f'Проверка выборочной дисперсии на нормальность с точностью '
+      f'до +- 3 С.К.О. при 10 000 реализаций: {checkSampleVariance(sampleVariance, len(X))}\n')
+
+# проверим генератор критерием Пирсона №2
+hist = [0] * 100
+for i in X:
+    hist[int(i*100)] += 1  # заполняем гистограмму
+
+hist2 = [[0 for i in range(10)] for j in range(10)]
+for i in range(0, len(X)-1, 2):  # 5000 итераций
+    hist2[int(X[i]*10)][int(X[i+1]*10)] += 1
+
+hist3 = [[[0 for i in range(4)] for j in range(4)] for k in range(4)]
+for i in range(0, len(X)-2, 3):
+    hist3[int(X[i]*4)][int(X[i+1]*4)][int(X[i+2]*4)] += 1
+
+T = 0  # статистика для одномерного случая
+for i in range(len(hist)):
+    T += len(X) * (len(hist)/len(X) - hist[i]/len(X))**2 / (len(hist)/len(X))
+
+T2 = 0  # статистика для двумерного случая
+for i in range(len(hist2)):
+    for j in range(len(hist2)):
+        hist2[i][j] /= (len(X) / 2)
+        T2 += (len(X) / 2) * ((1 / len(hist2) ** 2) - hist2[i][j])**2 / (1 / len(hist2) ** 2)
+
+T3 = 0  # статистика для трехмерного случая
+for i in range(len(hist3)):
+    for j in range(len(hist3)):
+        for k in range(len(hist3)):
+            hist3[i][j][k] /= (len(X) / 3)
+            T3 += (len(X) / 3) * ((1 / len(hist3)**3) - hist3[i][j][k])**2 / (1 / len(hist3)**3)
+
+
+print("№2")
+print(f'Значение статистики T: {T}. Значение Хи-квадрат '
+      f'с уровнем значимости 0.01 и 99 степенями свободы: 135.807. T < X^2(0.01, 99) = {T < 135.807}')
+print(f'Значение статистики T2: {T2}. Значение Хи-квадрат '
+      f'с уровнем значимости 0.01 и 99 степенями свободы: 135.807. T < X^2(0.01, 99) = {T2 < 135.807}')
+print(f'Значение статистики T3: {T3}. Значение Хи-квадрат '
+      f'с уровнем значимости 0.01 и 99 степенями свободы: 92.01. T < X^2(0.01, 63) = {T3 < 92.01}\n')
+
+# метод инверсий №3
+I = 0
+for i in range(len(X)-1):
+    for j in range(i+1, len(X)):
+        if i < j and X[i] > X[j]:
+            I += 1
+MI = len(X)*(len(X)-1)/4
+print(MI)
+DI = (2*len(X)**3 + 3*len(X)**2 - 5*len(X))/72
+print(DI)
+
+print("№3")
+print(f'Значение статистики I: {I}. '
+      f'I лежит в диапазоне М.О. +- 3 С.К.О.: {MI + 3 * DI ** 0.5 > I > MI - 3 * DI ** 0.5}\n')
+
+# метод поворотных точек №4
+T = 0
+for i in range(1, len(X)-1):
+    if (X[i] > X[i-1] and X[i] > X[i+1]) or (X[i] < X[i-1] and X[i] < X[i+1]):
+        T += 1
+print("№4")
+M = (2/3*(len(X)-2))
+D = (16*len(X) - 29)/90
+print(f'Значение статистики T: {T}. '
+      f'Статистика находится в диапазоне М.О. +- 3 С.К.О.: {M + 3*D**0.5 > T > M - 3*D**0.5}\n')
+
+# вычисление выборочной ковариации №5
+print("№5")
+print("Проверка методом выборочной ковариации:", covariationMethod(X))
